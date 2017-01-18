@@ -12,7 +12,7 @@ import filterObject from './internals/filterObject';
 // This protects us from accidentally including this configuration in our
 // client bundle. That would be a big NO NO to do. :)
 if (process.env.IS_CLIENT) {
-  throw new Error("You shouldn't be importing the `./config` directly into your 'client' or 'shared' source as the configuration object will get included in your client bundle. Not a safe move! Instead, use the `safeConfigGet` helper function (located at `./src/shared/utils/config`) within the 'client' or 'shared' source files to reference configuration values in a safe manner.");
+  throw new Error("You shouldn't be importing the `./config` directly into your 'client' or 'shared' source as the configuration object will get included in your client bundle. Not a safe move! Instead, use the `safeConfigGet` helper function (located at `../web/src/shared/utils/config`) within the 'client' or 'shared' source files to reference configuration values in a safe manner.");
 }
 
 const config = {
@@ -57,7 +57,7 @@ const config = {
   includeSourceMapsForProductionBuilds: false,
 
   // Path to the shared src between the bundles.
-  bundlesSharedSrcPath: './src/shared',
+  bundlesSharedSrcPath: '../web/src/shared',
 
   // These extensions are tried when resolving src files for our bundles..
   bundleSrcTypes: ['js', 'jsx', 'json'],
@@ -194,12 +194,12 @@ const config = {
   bundles: {
     client: {
       // Src entry file.
-      srcEntryFile: './src/client/index.js',
+      srcEntryFile: '../web/src/client/index.js',
 
       // Src paths.
       srcPaths: [
-        './src/client',
-        './src/shared',
+        '../web/src/client',
+        '../web/src/shared',
         // The service worker offline page generation needs access to the
         // config folder.  Don't worry we have guards within the config files
         // to ensure they never get included in a client bundle.
@@ -244,12 +244,12 @@ const config = {
 
     server: {
       // Src entry file.
-      srcEntryFile: './src/server/index.js',
+      srcEntryFile: '../web/src/server/index.js',
 
       // Src paths.
       srcPaths: [
-        './src/server',
-        './src/shared',
+        '../web/src/server',
+        '../web/src/shared',
         './config',
       ],
 
@@ -272,10 +272,10 @@ const config = {
     // listener.
     /*
     apiServer: {
-      srcEntryFile: './src/api/index.js',
+      srcEntryFile: '../web/src/api/index.js',
       srcPaths: [
-        './src/api',
-        './src/shared',
+        '../web/src/api',
+        '../web/src/shared',
         './config',
       ],
       outputPath: './build/api',
@@ -353,7 +353,7 @@ export const clientConfig = filterObject(
   // This object will be bound to the window.__CLIENT_CONFIG__
   // property which is where client code should be referencing it from.
   // As we generally have shared code between our node/browser code we have
-  // created a helper function in "./src/shared/utils/config" that you can used
+  // created a helper function in "../web/src/shared/utils/config" that you can used
   // to request config values from.  It will make sure that either the
   // application config file is used (i.e. this file), or the
   // window.__CLIENT_CONFIG__ is used.  This avoids boilerplate throughout your
